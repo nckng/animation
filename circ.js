@@ -19,34 +19,54 @@ var first = function(){
     dot();
 };
 
-var grow = function(){
-    var x = 1;
-    var grow = true;
+var an = function(){
+    var r = 1;
+    var growing = true;
     window.cancelAnimationFrame(rid);
-    var dot = function(){
+    var change = function(){
 	ctx.clearRect(0,0,c.width,c.height);
-	if(x == 0 or x == c.width/2){
-	    grow = !(grow);
-	} 
 	ctx.beginPath();
-	ctx.arc(c.height/2,c.height/2,x,0,2*Math.PI);
-	ctx.stroke();
-	if (grow){
-	    x++;
+	ctx.moveTo(c.width/2,c.height/2);
+	ctx.arc(c.width/2,c.height/2,r,0,2*Math.PI);
+	ctx.fill();
+	rid = window.requestAnimationFrame(change);
+	if (r == 0 || r == c.height/2){
+	    growing = !growing;
+	};
+	if (growing){
+	    r++;
 	}
 	else{
-	    x--;
+	    r--;
 	}
-	rid = window.requestAnimationFrame(dot);
-    }
-    dot();
+    };
+    change();
 };
+/*
+var na = function(){
+    var x = Math.floor((Math.random()*c.height)+1);
+    var y = Math.floor((Math.random()*c.height)+1);
+    var xv = 1;
+    var yv = 1;
+    window.cancelAnimationFrame(rid);
+    var image = new Image();
+    image.src = "download.png";
+    var change = function(){
+	ctx.clearRect(0,0,canvas.width, canvas.height);
+	ctx.drawImage(image, x,y);
+	rid = window.requestAnimationFrame(change);
+    };
+    change();
+};
+
 
 var stopit = function(){
     window.cancelAnimationFrame(rid);
 };
 
-circle.addEventListener("click",grow);
+circle.addEventListener("click",na);
+
+
 slate.addEventListener("click",first);
 
 
