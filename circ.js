@@ -1,6 +1,7 @@
 var c = document.getElementById("slate");
 var sb = document.getElementById("stop");
 var circle = document.getElementById("circle");
+var dvd = document.getElementById("DVD");
 var ctx = c.getContext('2d');
 var rid;
 
@@ -42,18 +43,26 @@ var an = function(){
     };
     change();
 };
-/*
+
 var na = function(){
-    var x = Math.floor((Math.random()*c.height)+1);
-    var y = Math.floor((Math.random()*c.height)+1);
+    var x = Math.floor((Math.random()*(c.height-225))+1);
+    var y = Math.floor((Math.random()*(c.height-225))+1);
     var xv = 1;
     var yv = 1;
     window.cancelAnimationFrame(rid);
     var image = new Image();
     image.src = "download.png";
     var change = function(){
-	ctx.clearRect(0,0,canvas.width, canvas.height);
+	ctx.clearRect(0,0,c.width, c.height);
 	ctx.drawImage(image, x,y);
+	if (x == 0 || x == c.height-225){
+	    xv = -1*xv;  
+	};
+	if (y == -60 || y == c.height-165){
+	    yv = -1*yv;
+	};
+	x += xv;
+	y += yv;
 	rid = window.requestAnimationFrame(change);
     };
     change();
@@ -64,7 +73,9 @@ var stopit = function(){
     window.cancelAnimationFrame(rid);
 };
 
-circle.addEventListener("click",na);
+circle.addEventListener("click",an);
+
+dvd.addEventListener("click",na);
 
 
 slate.addEventListener("click",first);
